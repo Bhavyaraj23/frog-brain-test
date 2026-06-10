@@ -1,0 +1,25 @@
+{
+  "name": "frog-brain-test",
+  "version": "1.0.0",
+  "description": "Frog Brain Speed Test Game with Data Recording",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "better-sqlite3": "^12.10.0",
+    "exceljs": "^4.4.0",
+    "cors": "^2.8.6"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.10.0": true
+  }
+}

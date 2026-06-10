@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>🐸 Frog Brain Test – Complete Setup Guide</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;
+  --border:#30363d;--text:#e6edf3;--muted:#8b949e;
+  --blue:#58a6ff;--blue2:#1f6feb;--green:#3fb950;--green2:#238636;
+  --orange:#f0883e;--red:#f85149;--gold:#e3b341;--purple:#bc8cff;
+}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.65;font-size:15px}
+a{color:var(--blue)}
+/* ── LAYOUT ── */
+.wrapper{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
+/* ── HERO ── */
+.hero{text-align:center;padding:2.5rem 1rem 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.hero-emoji{font-size:4rem;display:block;margin-bottom:.8rem}
+.hero h1{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:.5rem}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:580px;margin:0 auto}
+/* ── SECTION ── */
+.section{margin-bottom:2.8rem}
+.section-title{font-size:1.3rem;font-weight:800;color:var(--blue);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.section-title span{background:var(--blue2);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;flex-shrink:0}
+/* ── STEPS ── */
+.step{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:1rem;position:relative}
+.step-num{position:absolute;top:-12px;left:1rem;background:var(--blue2);color:#fff;font-size:.72rem;font-weight:900;padding:.18rem .65rem;border-radius:50px;text-transform:uppercase;letter-spacing:.06em}
+.step h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.5rem;margin-top:.3rem}
+.step p{color:var(--muted);font-size:.92rem;margin-bottom:.6rem}
+.step p:last-child{margin-bottom:0}
+/* ── CODE BLOCKS ── */
+pre{background:#010409;border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;overflow-x:auto;margin:.5rem 0;position:relative}
+code{font-family:'Cascadia Code','Fira Code',monospace;font-size:.88rem}
+pre code{color:#e6edf3}
+.cmd{color:var(--green)}
+.cmt{color:var(--muted)}
+.str{color:var(--orange)}
+.kw{color:var(--purple)}
+/* inline code */
+:not(pre)>code{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.1em .4em;font-size:.85em;color:var(--orange)}
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0;display:flex;gap:.8rem;align-items:flex-start}
+.callout.info{background:rgba(88,166,255,.1);border:1.5px solid rgba(88,166,255,.35)}
+.callout.warn{background:rgba(240,136,62,.1);border:1.5px solid rgba(240,136,62,.35)}
+.callout.success{background:rgba(63,185,80,.1);border:1.5px solid rgba(63,185,80,.35)}
+.callout.danger{background:rgba(248,81,73,.1);border:1.5px solid rgba(248,81,73,.35)}
+.callout-icon{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.callout-body{font-size:.9rem}
+.callout-body strong{display:block;margin-bottom:.25rem;font-size:.95rem}
+.callout.info .callout-body strong{color:var(--blue)}
+.callout.warn .callout-body strong{color:var(--orange)}
+.callout.success .callout-body strong{color:var(--green)}
+.callout.danger .callout-body strong{color:var(--red)}
+/* ── FILE TREE ── */
+.file-tree{background:#010409;border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;font-family:'Cascadia Code','Fira Code',monospace;font-size:.88rem}
+.file-tree .dir{color:var(--blue)}
+.file-tree .file{color:var(--orange)}
+.file-tree .note{color:var(--muted);font-style:italic}
+/* ── URL CHIPS ── */
+.url-chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.35rem .8rem;font-family:monospace;font-size:.88rem;color:var(--blue);margin:.2rem .2rem .2rem 0}
+/* ── TABLE ── */
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin:.6rem 0}
+th{background:var(--bg3);padding:.55rem .8rem;text-align:left;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border)}
+td{padding:.52rem .8rem;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:0}
+/* ── HORIZONTAL RULE ── */
+hr{border:0;border-top:1px solid var(--border);margin:2rem 0}
+/* ── BADGE ── */
+.badge{display:inline-block;padding:.15rem .55rem;border-radius:50px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.badge-green{background:rgba(63,185,80,.2);color:var(--green);border:1px solid rgba(63,185,80,.4)}
+.badge-blue{background:rgba(88,166,255,.2);color:var(--blue);border:1px solid rgba(88,166,255,.4)}
+.badge-orange{background:rgba(240,136,62,.2);color:var(--orange);border:1px solid rgba(240,136,62,.4)}
+/* ── TOC ── */
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:2.5rem}
+.toc h2{font-size:1rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.8rem}
+.toc ol{list-style:decimal;padding-left:1.4rem;display:flex;flex-direction:column;gap:.3rem}
+.toc a{color:var(--text);text-decoration:none;font-size:.92rem}
+.toc a:hover{color:var(--blue)}
+/* ── EXCEL PREVIEW ── */
+.excel-preview{background:#010409;border:1px solid var(--border);border-radius:8px;overflow:auto;margin:.5rem 0}
+.excel-preview table{margin:0;width:max-content}
+.excel-preview th{background:#1a3a1a;color:var(--green);border-color:#2d5a2d;min-width:90px}
+.excel-preview td{color:#e6edf3;border-color:#1e2d1e}
+.excel-preview .miss{color:var(--red);font-weight:700}
+.excel-preview .hit{color:var(--green);font-weight:700}
+@media(max-width:640px){.wrapper{padding:1.2rem .9rem 3rem}pre{font-size:.78rem}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-emoji">🐸🧠</span>
+    <h1>Frog Brain Test — Complete Setup Guide</h1>
+    <p>A full beginner's guide — from zero to a live game with database + Excel export.<br>
+    Written for someone who has <strong>never coded before.</strong></p>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h2>📋 What we will do</h2>
+    <ol>
+      <li><a href="#what">What are all these files?</a></li>
+      <li><a href="#install-node">Install Node.js (the engine)</a></li>
+      <li><a href="#project">Create your project folder & copy files</a></li>
+      <li><a href="#install-deps">Install the packages</a></li>
+      <li><a href="#run-local">Run the game on your computer</a></li>
+      <li><a href="#play">Play the game & record data</a></li>
+      <li><a href="#admin">View results in Admin Dashboard</a></li>
+      <li><a href="#excel">Download data as Excel sheet</a></li>
+      <li><a href="#deploy">Host it online (FREE) — Railway.app</a></li>
+      <li><a href="#excel-format">Understanding the Excel format</a></li>
+      <li><a href="#troubleshoot">Common problems & fixes</a></li>
+    </ol>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 1 ─────────────────────────── -->
+  <div class="section" id="what">
+    <div class="section-title"><span>1</span> What are all these files?</div>
+
+    <p style="color:var(--muted);margin-bottom:1rem">You received 4 files. Here is what each one does:</p>
+
+    <div class="file-tree">
+      <div>📁 <span class="dir">frog-brain-test/</span> <span class="note">← your project folder (create this)</span></div>
+      <div>&nbsp;&nbsp;├── <span class="file">package.json</span> &nbsp;&nbsp;&nbsp;<span class="note">← tells Node what packages to download</span></div>
+      <div>&nbsp;&nbsp;├── <span class="file">server.js</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="note">← the backend server (handles data)</span></div>
+      <div>&nbsp;&nbsp;├── <span class="file">database.js</span> &nbsp;&nbsp;&nbsp;<span class="note">← sets up the SQLite database</span></div>
+      <div>&nbsp;&nbsp;└── 📁 <span class="dir">public/</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="file">index.html</span> &nbsp;<span class="note">← the game itself (frontend)</span></div>
+    </div>
+
+    <div class="callout info" style="margin-top:1rem">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body">
+        <strong>Simple explanation</strong>
+        Think of it like a restaurant: <code>index.html</code> is the menu (what users see),
+        <code>server.js</code> is the kitchen (processes orders), and
+        <code>database.js</code> sets up the record book where all results are stored.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 2 ─────────────────────────── -->
+  <div class="section" id="install-node">
+    <div class="section-title"><span>2</span> Install Node.js</div>
+
+    <div class="callout info">
+      <span class="callout-icon">ℹ️</span>
+      <div class="callout-body">
+        <strong>What is Node.js?</strong>
+        Node.js lets your computer run JavaScript outside a browser — it's the engine that powers our server.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 2.1</div>
+      <h3>Go to the Node.js website</h3>
+      <p>Open your browser and go to: <a href="https://nodejs.org" target="_blank">https://nodejs.org</a></p>
+      <p>Click the big green button that says <strong>"LTS"</strong> (Long Term Support). This is the stable version.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 2.2</div>
+      <h3>Install it</h3>
+      <p>Run the downloaded file. Click Next → Next → Install. Leave all settings as default.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 2.3</div>
+      <h3>Verify installation</h3>
+      <p>Open a <strong>Terminal</strong> (Mac: press Cmd+Space, type "Terminal") or <strong>Command Prompt</strong> (Windows: press Win key, type "cmd"). Then type:</p>
+      <pre><code><span class="cmd">node --version</span></code></pre>
+      <p>You should see something like <code>v20.11.0</code>. If you do — Node.js is installed! ✅</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 3 ─────────────────────────── -->
+  <div class="section" id="project">
+    <div class="section-title"><span>3</span> Create your project folder</div>
+
+    <div class="step">
+      <div class="step-num">Step 3.1</div>
+      <h3>Create a folder on your Desktop</h3>
+      <p>Create a new folder called <strong>frog-brain-test</strong> on your Desktop (or anywhere you like).</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 3.2</div>
+      <h3>Create a subfolder called "public"</h3>
+      <p>Inside <strong>frog-brain-test</strong>, create another folder called <strong>public</strong>.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 3.3</div>
+      <h3>Place the files correctly</h3>
+      <p>Copy the files you received into this structure:</p>
+      <div class="file-tree">
+        <div>📁 <span class="dir">frog-brain-test/</span></div>
+        <div>&nbsp;&nbsp;├── <span class="file">package.json</span></div>
+        <div>&nbsp;&nbsp;├── <span class="file">server.js</span></div>
+        <div>&nbsp;&nbsp;├── <span class="file">database.js</span></div>
+        <div>&nbsp;&nbsp;└── 📁 <span class="dir">public/</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="file">index.html</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 4 ─────────────────────────── -->
+  <div class="section" id="install-deps">
+    <div class="section-title"><span>4</span> Install the packages</div>
+
+    <div class="callout info">
+      <span class="callout-icon">📦</span>
+      <div class="callout-body">
+        <strong>What are packages?</strong>
+        Packages are pre-written tools we use. Like buying ingredients instead of growing them yourself.
+        We need: Express (web server), SQLite (database), XLSX (Excel file creator), CORS (security).
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 4.1</div>
+      <h3>Open Terminal / Command Prompt IN your project folder</h3>
+      <p><strong>Mac:</strong> Right-click the <code>frog-brain-test</code> folder → "New Terminal at Folder"</p>
+      <p><strong>Windows:</strong> Open the folder → click the address bar → type <code>cmd</code> → press Enter</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 4.2</div>
+      <h3>Run this one command</h3>
+      <pre><code><span class="cmd">npm install</span></code></pre>
+      <p>You will see lots of text scrolling. Wait until it finishes (1–2 minutes). A new folder called <code>node_modules</code> will appear — that's normal.</p>
+
+      <div class="callout success" style="margin-top:.8rem">
+        <span class="callout-icon">✅</span>
+        <div class="callout-body"><strong>Success looks like:</strong> <code>added 87 packages</code> (number may vary)</div>
+      </div>
+      <div class="callout danger" style="margin-top:.5rem">
+        <span class="callout-icon">❌</span>
+        <div class="callout-body"><strong>If you see "npm not found":</strong> Node.js did not install correctly. Go back to Step 2 and try again. Restart your computer first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 5 ─────────────────────────── -->
+  <div class="section" id="run-local">
+    <div class="section-title"><span>5</span> Run the game on your computer</div>
+
+    <div class="step">
+      <div class="step-num">Step 5.1</div>
+      <h3>Start the server</h3>
+      <p>In the same Terminal / Command Prompt, type:</p>
+      <pre><code><span class="cmd">node server.js</span></code></pre>
+      <p>You should see:</p>
+      <pre><code><span class="cmt">🐸 ══════════════════════════════════════════</span>
+<span class="cmt">   Frog Brain Test Server running!</span>
+<span class="green">   🎮 Game:    http://localhost:3000</span>
+<span class="green">   📊 Admin:   http://localhost:3000/admin</span>
+<span class="green">   📥 Excel:   http://localhost:3000/api/download</span>
+<span class="cmt">🐸 ══════════════════════════════════════════</span>
+<span class="green">✅ Database ready at: /path/to/frog_results.db</span></code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 5.2</div>
+      <h3>Open the game in your browser</h3>
+      <p>Open Chrome, Firefox, or Safari and go to:</p>
+      <span class="url-chip">🎮 http://localhost:3000</span>
+      <p style="margin-top:.5rem">The game will load! 🎉</p>
+      <div class="callout warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Keep the Terminal open</strong> — if you close it, the server stops. The game needs the server running to save data.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 5.3</div>
+      <h3>To stop the server</h3>
+      <p>In the Terminal, press <kbd>Ctrl + C</kbd> (on Mac too). To start again, run <code>node server.js</code>.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 6 ─────────────────────────── -->
+  <div class="section" id="play">
+    <div class="section-title"><span>6</span> Play the game &amp; record data</div>
+
+    <div class="step">
+      <div class="step-num">Step 6.1</div>
+      <h3>Enter the subject's name</h3>
+      <p>On the Start screen, there is now a <strong>name input field</strong> at the top. Type the test subject's name (e.g. "Ramesh Kumar" or "Test Subject 1").</p>
+      <div class="callout warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body"><strong>The game will not start without a name.</strong> The name will be saved with the results.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 6.2</div>
+      <h3>Play the game</h3>
+      <p>Tap "गेम शुरू करें" to start. Play normally — tap frogs as they appear.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 6.3</div>
+      <h3>View recorded data on Result screen</h3>
+      <p>After the game ends, you will see a <strong>Hit Timing Data table</strong> showing:</p>
+      <table>
+        <tr><th>Column</th><th>Meaning</th></tr>
+        <tr><td>Hit #</td><td>Which round (1 through 6)</td></tr>
+        <tr><td>Time (sec)</td><td>How many seconds from game start when the tap happened</td></tr>
+        <tr><td>Result</td><td>✅ Tapped / ❌ MISSED</td></tr>
+      </table>
+      <p style="margin-top:.6rem">You will also see a green "Data save ho gaya!" message confirming it was saved to the database.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 7 ─────────────────────────── -->
+  <div class="section" id="admin">
+    <div class="section-title"><span>7</span> View results in Admin Dashboard</div>
+
+    <div class="step">
+      <div class="step-num">Step 7.1</div>
+      <h3>Open the Admin page</h3>
+      <p>While the server is running, go to:</p>
+      <span class="url-chip">📊 http://localhost:3000/admin</span>
+      <p style="margin-top:.5rem">You will see a dark dashboard with:</p>
+      <ul style="color:var(--muted);padding-left:1.4rem;display:flex;flex-direction:column;gap:.3rem;margin-top:.4rem">
+        <li>Total tests taken</li>
+        <li>Average score across all subjects</li>
+        <li>How many scored ≥5 (healthy) vs ≤2 (alert)</li>
+        <li>A full table of every test result with all hit timings</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 8 ─────────────────────────── -->
+  <div class="section" id="excel">
+    <div class="section-title"><span>8</span> Download data as Excel (.xlsx)</div>
+
+    <div class="step">
+      <div class="step-num">Step 8.1</div>
+      <h3>Click the Download button</h3>
+      <p>In the Admin dashboard, click the green <strong>"📥 Download Excel (.xlsx)"</strong> button.</p>
+      <p>OR go directly to:</p>
+      <span class="url-chip">📥 http://localhost:3000/api/download</span>
+      <p style="margin-top:.5rem">A file named <code>FrogBrainTest_Results_2026-04-08.xlsx</code> will download.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 8.2</div>
+      <h3>Open in Excel or Google Sheets</h3>
+      <p>Double-click the downloaded file. It opens in Microsoft Excel, LibreOffice Calc, or you can upload it to Google Sheets (sheets.google.com → File → Import).</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── EXCEL FORMAT ─────────────────────────────── -->
+  <div class="section" id="excel-format">
+    <div class="section-title"><span>10</span> Understanding the Excel format</div>
+    <p style="color:var(--muted);margin-bottom:1rem">Here is what the Excel file looks like:</p>
+
+    <div class="excel-preview">
+      <table>
+        <thead>
+          <tr>
+            <th>Test Subject #</th><th>Subject Name</th><th>Test Date</th><th>Test Time</th>
+            <th>Hit 1 (sec)</th><th>Hit 2 (sec)</th><th>Hit 3 (sec)</th>
+            <th>Hit 4 (sec)</th><th>Hit 5 (sec)</th><th>Hit 6 (sec)</th>
+            <th>Final Score</th><th>Score %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td><td>Ramesh Kumar</td><td>08/04/2026</td><td>10:34:22 AM</td>
+            <td class="hit">1.23</td><td class="hit">4.55</td><td class="miss">MISSED</td>
+            <td class="hit">10.88</td><td class="miss">MISSED</td><td class="hit">18.02</td>
+            <td>4 / 6</td><td>67%</td>
+          </tr>
+          <tr>
+            <td>2</td><td>Sunita Devi</td><td>08/04/2026</td><td>10:41:05 AM</td>
+            <td class="hit">0.98</td><td class="hit">3.12</td><td class="hit">6.44</td>
+            <td class="hit">9.71</td><td class="hit">13.55</td><td class="hit">17.20</td>
+            <td>6 / 6</td><td>100%</td>
+          </tr>
+          <tr>
+            <td>3</td><td>Mohan Lal</td><td>08/04/2026</td><td>10:50:33 AM</td>
+            <td class="miss">MISSED</td><td class="miss">MISSED</td><td class="hit">8.90</td>
+            <td class="miss">MISSED</td><td class="hit">14.22</td><td class="miss">MISSED</td>
+            <td>2 / 6</td><td>33%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info" style="margin-top:1rem">
+      <span class="callout-icon">📊</span>
+      <div class="callout-body">
+        <strong>What the times mean</strong>
+        The hit time is in <strong>seconds from when the game started</strong>. So "1.23" means the user tapped the frog 1.23 seconds after the game began.
+        A lower number = faster reaction. "MISSED" means the frog disappeared before the user could tap it.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 9 ─────────────────────────── -->
+  <div class="section" id="deploy">
+    <div class="section-title"><span>9</span> Host online FREE — Railway.app</div>
+
+    <div class="callout info">
+      <span class="callout-icon">🌐</span>
+      <div class="callout-body">
+        <strong>Why host online?</strong>
+        Right now the game only works on <em>your computer</em>. To share it with others — patients in a clinic, family members — you need to put it on the internet. Railway gives you a free URL.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 9.1</div>
+      <h3>Create a free GitHub account</h3>
+      <p>Go to <a href="https://github.com" target="_blank">github.com</a> → Sign up (it's free). GitHub is where we store your code so Railway can find it.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 9.2</div>
+      <h3>Create a new GitHub repository</h3>
+      <p>After logging in to GitHub:</p>
+      <ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.3rem;color:var(--muted);font-size:.9rem">
+        <li>Click the <strong>+</strong> button (top right) → "New repository"</li>
+        <li>Name it <code>frog-brain-test</code></li>
+        <li>Make it <strong>Public</strong></li>
+        <li>Click "Create repository"</li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 9.3</div>
+      <h3>Upload your files to GitHub</h3>
+      <p>On the GitHub repository page:</p>
+      <ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.3rem;color:var(--muted);font-size:.9rem">
+        <li>Click <strong>"uploading an existing file"</strong></li>
+        <li>Drag and drop: <code>package.json</code>, <code>server.js</code>, <code>database.js</code></li>
+        <li>Create the <code>public</code> folder: click "Create new file" → type <code>public/index.html</code> → paste the contents</li>
+        <li>Click "Commit changes"</li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 9.4</div>
+      <h3>Add a Procfile (tells Railway how to start your app)</h3>
+      <p>Create a new file in your GitHub repo called <code>Procfile</code> (no extension) with this content:</p>
+      <pre><code>web: node server.js</code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 9.5</div>
+      <h3>Deploy on Railway</h3>
+      <ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem;color:var(--muted);font-size:.9rem">
+        <li>Go to <a href="https://railway.app" target="_blank">railway.app</a> → Sign up with your GitHub account</li>
+        <li>Click <strong>"New Project"</strong> → "Deploy from GitHub repo"</li>
+        <li>Select your <code>frog-brain-test</code> repo</li>
+        <li>Railway will automatically detect it's a Node.js app and deploy it</li>
+        <li>After 1–2 minutes, click <strong>"Generate Domain"</strong> in the Settings tab</li>
+        <li>You get a URL like <code>https://frog-brain-test-production.up.railway.app</code></li>
+      </ol>
+      <div class="callout success" style="margin-top:.8rem">
+        <span class="callout-icon">🎉</span>
+        <div class="callout-body">
+          <strong>Your game is now live!</strong> Share the URL with anyone. Results are saved to Railway's database automatically.
+          To download Excel: go to <code>your-url.railway.app/api/download</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">Step 9.6</div>
+      <h3>Important: Add a persistent volume for the database</h3>
+      <p>Railway's free plan resets files on redeploy. To keep your data permanently:</p>
+      <ol style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.3rem;color:var(--muted);font-size:.9rem">
+        <li>In Railway, go to your project → <strong>Volumes</strong> → Add Volume</li>
+        <li>Mount path: <code>/app/data</code></li>
+        <li>In <code>database.js</code>, change <code>DB_PATH</code> to use <code>/app/data/frog_results.db</code></li>
+      </ol>
+      <div class="callout warn" style="margin-top:.5rem">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body"><strong>Without this step,</strong> data is deleted every time Railway restarts your app. Download Excel regularly as a backup.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────── SECTION 11 ─────────────────────────── -->
+  <div class="section" id="troubleshoot">
+    <div class="section-title"><span>11</span> Common problems &amp; fixes</div>
+
+    <table>
+      <tr>
+        <th>Problem</th>
+        <th>Fix</th>
+      </tr>
+      <tr>
+        <td><code>npm not found</code></td>
+        <td>Reinstall Node.js from nodejs.org. Restart computer.</td>
+      </tr>
+      <tr>
+        <td><code>EADDRINUSE port 3000</code></td>
+        <td>Another app is using port 3000. Change <code>3000</code> to <code>3001</code> in <code>server.js</code> line: <code>const PORT = 3001</code></td>
+      </tr>
+      <tr>
+        <td>Game loads but data doesn't save</td>
+        <td>Make sure the server is running (<code>node server.js</code>). The game needs the server to save data.</td>
+      </tr>
+      <tr>
+        <td>Can't open <code>localhost:3000</code></td>
+        <td>Server not running. Open Terminal → navigate to project folder → run <code>node server.js</code></td>
+      </tr>
+      <tr>
+        <td>Excel file is empty</td>
+        <td>No games played yet. Play at least one game first, then download.</td>
+      </tr>
+      <tr>
+        <td><code>Cannot find module 'better-sqlite3'</code></td>
+        <td>Run <code>npm install</code> again in the project folder.</td>
+      </tr>
+      <tr>
+        <td>Railway deployment fails</td>
+        <td>Make sure <code>package.json</code> has <code>"start": "node server.js"</code> in scripts.</td>
+      </tr>
+      <tr>
+        <td>Font looks different / broken</td>
+        <td>You need internet for Google Fonts to load. No internet = system font (that's fine).</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="section">
+    <div class="section-title"><span>⚡</span> Quick Reference — All URLs</div>
+    <table>
+      <tr><th>URL</th><th>What it does</th></tr>
+      <tr><td><span class="url-chip">localhost:3000</span></td><td>🎮 The game (for players)</td></tr>
+      <tr><td><span class="url-chip">localhost:3000/admin</span></td><td>📊 Admin dashboard with all results</td></tr>
+      <tr><td><span class="url-chip">localhost:3000/api/download</span></td><td>📥 Download Excel file</td></tr>
+      <tr><td><span class="url-chip">localhost:3000/api/results</span></td><td>📋 Raw JSON data</td></tr>
+    </table>
+  </div>
+
+  <hr/>
+  <p style="text-align:center;color:var(--muted);font-size:.88rem;padding:.5rem">
+    🐸 Frog Brain Speed Test — Built for Dementia Awareness in India ❤️<br>
+    All data is stored locally on your computer. Nothing is sent anywhere without your permission.
+  </p>
+
+</div>
+</body>
+</html>
