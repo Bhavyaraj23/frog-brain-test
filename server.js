@@ -7,6 +7,10 @@ const express = require('express');
 const cors    = require('cors');
 const path    = require('path');
 const ExcelJS = require('exceljs');
+
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 const { getDB } = require('./database');
 
 const app  = express();
@@ -25,7 +29,7 @@ app.get('/', (req, res) => {
 // ── 1.  SAVE GAME RESULT  ─────────────────────────────────────
 //  POST /api/save-result
 //  Body: { subjectName, hits: ["1.23","MISSED","2.11",...], finalScore }
-app.post('/api/save-result', (req, res) => {
+app.post('/api/save-result', async (req, res) => {
   try {
     const { subjectName, hits, finalScore, notes } = req.body;
 
@@ -62,11 +66,38 @@ app.post('/api/save-result', (req, res) => {
 
     console.log(`✅ Result saved — ID: ${result.lastInsertRowid} | Subject: ${subjectName} | Score: ${finalScore}/6`);
 
-    res.json({
-      success: true,
-      id: result.lastInsertRowid,
-      message: `Result saved for "${subjectName}"`
-    });
+// Save to Google Sheet
+try {
+  await fetch('https://script.google.com/macros/s/AKfycbyZl99KBx4l81PRNCLbLlvfByGJpXWUaXSOnOmqJRtoqAafFiBGIz-K7Mv-5_p4p5nHag/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      subjectName,
+      date,
+      time,
+      finalScore,
+      hit1: hits[0],
+      hit2: hits[1],
+      hit3: hits[2],
+      hit4: hits[3],
+      hit5: hits[4],
+      hit6: hits[5],
+      notes: notes || ''
+    })
+  });
+
+  console.log('✅ Saved to Google Sheets');
+} catch (sheetError) {
+  console.error('❌ Google Sheet Error:', sheetError.message);
+}
+
+res.json({
+  success: true,
+  id: result.lastInsertRowid,
+  message: `Result saved for "${subjectName}"`
+});
 
   } catch (err) {
     console.error('❌ Save error:', err.message);
